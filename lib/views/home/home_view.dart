@@ -10,7 +10,7 @@ class HomeView extends StatefulWidget {
 }
 
 int _selectedPage = 0;
-PageController _pageController = PageController();
+PageController _pageController = PageController(initialPage: 1);
 
 class _HomeViewState extends State<HomeView> {
   @override
@@ -27,6 +27,7 @@ class _HomeViewState extends State<HomeView> {
       child: Scaffold(
         backgroundColor: Colors.grey.shade50,
         body: PageView(
+          onPageChanged: onPageChange,
           controller: _pageController,
           children: <Widget>[
             const Body1(),

@@ -20,60 +20,64 @@ class RecipeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              color: Colors.white,
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: Container(
-                          height: 35,
-                          width: 35,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            RecipeApp.left,
-                            color: Colors.grey.shade600,
-                            size: 20,
-                          ),
-                        ),
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      height: 35,
+                      width: 35,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
                       ),
-                      const SizedBox(
-                        width: 50,
+                      child: Icon(
+                        RecipeApp.left,
+                        color: Colors.grey.shade600,
+                        size: 20,
                       ),
-                      Center(
-                        child: Text(
-                          food,
-                          style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black),
-                        ),
-                      ),
-                      const Spacer(),
-                      Container(
-                          height: 35,
-                          width: 35,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            RecipeApp.more_horiz,
-                            color: Colors.grey.shade600,
-                            size: 20,
-                          )),
-                    ],
+                    ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    width: 25,
                   ),
+                  Expanded(
+                    child: Text(
+                      food,
+                      style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    height: 35,
+                    width: 35,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: Icon(
+                      RecipeApp.more_horiz,
+                      color: Colors.grey.shade600,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                children: [
                   Container(
                     clipBehavior: Clip.hardEdge,
                     width: double.infinity,
@@ -151,59 +155,56 @@ class RecipeView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: RecipeIngredientCard(
-                      ingredientList: recipeModel.ingredient,
+                  ...List.generate(
+                    recipeModel.ingredient.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: RecipeIngredientCard(
+                        image: recipeModel.ingredient[index].image,
+                        ingredient: recipeModel.ingredient[index].item,
+                        amount: recipeModel.ingredient[index].amount,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-            Positioned(
-              left: 5,
-              right: 5,
-              bottom: 0,
-              child: Stack(children: [
-                Container(
-                  height: 85,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(15)),
-                ),
+            Stack(
+              children: [
                 Align(
                   alignment: Alignment.center,
                   child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
                     height: 65,
-                    width: 200,
+                    width: 195,
                     decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(15)),
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Text(
                           "Start Cook!",
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
                         ),
                         SizedBox(
-                          width: 25,
+                          width: 15,
                         ),
                         Icon(
                           RecipeApp.right,
-                          size: 15,
                           color: Colors.white,
-                        ),
+                          size: 20,
+                        )
                       ],
                     ),
                   ),
                 ),
-              ]),
-            )
+              ],
+            ),
           ],
         ),
       ),

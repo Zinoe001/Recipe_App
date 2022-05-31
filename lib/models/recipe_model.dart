@@ -9,7 +9,7 @@ class RecipeModel {
     required this.time
   }) : super();
   final String recipe;
-  final String image;
+  final String image ;
   final List<IngredientsModel> ingredient;
   final String source;
   final double time;
@@ -18,7 +18,7 @@ class RecipeModel {
     return RecipeModel(
       recipe: json["label"],
       ingredient: List.from(json["ingredients"].map((e)=>IngredientsModel.fromJson(e))),
-      image: json["image"],
+      image: json["image"]??="https://media.istockphoto.com/vectors/thumbnail-image-vector-grahic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27UapoyYpQm0anc=",
       source: json["source"],
       time: json["totalTime"]
 
